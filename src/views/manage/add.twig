@@ -1,0 +1,45 @@
+{# extend the parent tpl #}
+{% extends 'layout.twig' %}
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Rent My Tools &raquo; Manage &raquo; Add' %}
+
+{% block pageContent %}
+	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; <a href="{{ app.request.baseUrl }}/manage">Manage</a> &raquo; Add</p>
+		<section id="itemDetails">
+		
+		<div id="newItem">
+			<h3>Add a new tool.</h3>
+			
+		<form action = "{{app.request.baseurl}}/manage/add" method = "post" enctype="multipart/form-data">
+		    	<div>
+		    	{{ form_label(addform.title) }}
+		    	{{ form_widget(addform.title) }}
+		    	</div>
+		    	<div>
+		    	{{ form_label(addform.description) }}
+		    	{{ form_widget(addform.description) }}
+		    	</div>
+		    	<div>
+		    	{{ form_label(addform.startdate) }}
+		    	{{ form_widget(addform.startdate) }}
+		    	</div>
+		    	<div>
+		    	{{ form_label(addform.enddate) }}
+		    	{{ form_widget(addform.enddate) }}
+		    	</div>
+		    	<div>
+					<label for="addform_images" class="required">Images</label>
+					<div>
+						<input id="addform_images" name="addform[images][]" required="required" accept="image/*" multiple="multiple" type="file">
+					</div>
+				</div>
+				{{ form_widget(addform._token) }}
+	        <p>
+                <input type="submit" value="Submit" id="submit-button" onclick ="saveText()"/>
+            </p>
+		</form>
+
+		</div>
+	</section>
+{% endblock %}

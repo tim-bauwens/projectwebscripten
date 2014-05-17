@@ -1,0 +1,19 @@
+{# extend the parent tpl #}
+{% extends 'layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Rent My Tools' %}
+
+{% block pageContent %}
+	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; Contact</p>
+
+	<section id="contactform">
+		<form method="post">
+		    {{ form_widget(form) }}
+	        <p>
+                <input type="submit" value="Send" id="submit-button"/>
+            </p>
+		</form>
+	</section>
+{% endblock %}

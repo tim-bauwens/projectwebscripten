@@ -1,0 +1,53 @@
+{# extend the parent tpl #}
+{% extends 'layout.twig' %}
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Rent My Tools &raquo; Manage &raquo; Update' %}
+
+{% block pageContent %}
+	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; <a href="{{ app.request.baseUrl }}/manage">Manage</a> &raquo; Update</p>
+		<section id="itemDetails">
+		
+		<div id="newItem">
+			<h3>Edit tool</h3>
+			<form action = "{{app.request.baseurl}}/manage/update?id={{ id }}" method = "post" enctype="multipart/form-data">
+		    	<div>
+		    	{{ form_label(updateform.title) }}
+		    	{{ form_widget(updateform.title) }}
+		    	</div>
+		    	<div>
+		    	{{ form_label(updateform.description) }}
+		    	{{ form_widget(updateform.description) }}
+		    	</div>
+		    	<div>
+		    	{{ form_label(updateform.startdate) }}
+		    	{{ form_widget(updateform.startdate) }}
+		    	</div>
+		    	<div>
+		    	{{ form_label(updateform.enddate) }}
+		    	{{ form_widget(updateform.enddate) }}
+		    	</div>
+		    	<div>
+					<label for="updateform_images">Images</label>
+					<div>
+						<input id="updateform_images" name="updateform[images][]"accept="image/*" multiple="multiple" type="file">
+					</div>
+				</div>
+				<div>
+					<p>Check any images you want to remove.</p>
+					{% for imageView in imageViews %}
+			    	<div>
+			    		<img src="../files/{{imageView.imagepath}}">
+			    		{{ form_widget(imageView.view) }}
+			    	</div>
+			    	{% endfor %}
+		    	</div>
+				{{ form_widget(updateform._token) }}
+	        <p>
+                <input type="submit" value="Submit" id="submit-button"/>
+            </p>
+		</form>
+
+		</div>
+	</section>
+{% endblock %}

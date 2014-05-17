@@ -1,0 +1,20 @@
+{
+	"require": {
+		"silex/silex": "1.0.*@dev",
+		"doctrine/dbal": "2.*",
+		"twig/twig": "1.*",
+		"knplabs/repository-service-provider": "dev-master",
+        "symfony/form": "2.*",
+        "symfony/validator": "2.*",
+        "symfony/config": "2.*",
+        "symfony/translation": "2.*",
+        "symfony/locale": "2.*",
+        "symfony/twig-bridge": "2.*",
+        "swiftmailer/swiftmailer": ">=4.1.2,<4.2-dev"
+	},
+	"autoload": {
+		"psr-0": {
+			"RentMyTools": "src/"
+		}
+	}
+}

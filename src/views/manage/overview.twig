@@ -1,0 +1,55 @@
+{# extend the parent tpl #}
+{% extends 'layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Rent My Tools &raquo; Detail' %}
+
+{% block pageContent %}
+	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; Manage overview</p>
+	<section id="itemDetails">
+		<div id=toolsOverview">
+			{% if itemDetails %}
+				<p><a href="{{ app.request.baseUrl }}/manage/add" id="add_link">Click here to add a new tool.</a></p>
+		        {% for itemDetail in itemDetails %}
+			        <article class = "itemDetail">
+			        		<a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}"><img class ="image_overview" src="../files/{{itemDetail.imagePath}}"></a>
+			                <h2><a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}" title="{{ itemDetail.title }}">{{ itemDetail.title }}</a></h2>
+			                {{ itemDetail.description|raw }}
+			                <p>
+			                <a href="{{ app.request.baseUrl }}/manage/delete?id={{ itemDetail.id }}">Delete</a> - 
+			                <a href="{{ app.request.baseUrl }}/manage/update?id={{ itemDetail.id }}">Update</a>
+			                </p>
+			        </article>
+		        {% endfor %}
+		</div>
+		<div class="text-center">
+			<ul class="pagination">
+
+			{% if currentPage == 1 %}
+					<li class="previousPage disabled"><span>&lt; previous</span></li>
+			{% else %}	
+					<li class="previousPage"><a href="?p={{currentPage - 1}}" data-p="{{currentPage - 1}}">&lt; previous</
+					a></li>
+			{% endif %}
+
+			{% for page in 1..pages %}
+				{% if page == currentPage %}
+					<li  class="active">
+						<span>{{currentPage}}</span>
+					</li>
+				{% else %}
+					<li >
+						<a href="?p={{page}}" data-p="{{page}}">{{page}}</a>
+					</li>
+				{% endif %}
+			{% endfor %}
+			<li class="nextPage"><a href="?p={{currentPage + 1}}" data-p="{{currentPage + 1}}">next &gt;</a></li>
+		</ul>
+		</div>
+			{% else %}
+			<p id="noItems">No items to show!</p>
+			<p><a href="{{ app.request.baseUrl }}/manage/add" id="add_link">Click here to add your first tool!</a></p>
+			{% endif %}
+	</section>
+{% endblock %}

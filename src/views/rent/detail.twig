@@ -1,0 +1,19 @@
+{# extend the parent tpl #}
+{% extends 'layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Rent My Tools &raquo; Detail' %}
+
+{% block pageContent %}
+	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; <a href="{{ app.request.baseUrl }}/rent">rent overview</a> &raquo; {{ itemDetail.id }} </p>
+	<section id="itemDetail">
+            <article class = "itemDetail">
+                <h2>{{ itemDetail.title }}</h2>
+                <p>{{ itemDetail.description|raw }} </p>
+                <p class="author">Posted by <em>{{ itemDetail.username }}</em> on {{ itemDetail.dateadded }}</p>
+            </article>
+	</section>
+ 
+
+{% endblock %}

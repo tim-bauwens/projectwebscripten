@@ -1,0 +1,52 @@
+{# extend the parent tpl #}
+{% extends 'layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Rent My Tools &raquo; Rent &raquo; Detail' %}
+
+{% block pageContent %}
+	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; rent overview</p>
+	<section id="itemDetails">
+		<div id=toolsOverview">
+		{% if itemDetails %}
+            {% for itemDetail in itemDetails %}
+            <article class = "itemDetail">
+            		<a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}"><img class ="image_overview" src="../files/{{itemDetail.imagePath}}"></a>
+                    <h2><a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}">{{ itemDetail.title }}</a></h2>
+                    <p class="author">Posted by <em>{{ itemDetail.username }}</em> on {{ itemDetail.dateadded }}</p>
+            </article>
+            {% endfor %}
+		</div>
+		<div class="text-center">
+			<ul class="pagination">
+
+			{% if currentPage == 1 %}
+					<li class="previousPage disabled"><span>&lt; previous</span></li>
+			{% else %}	
+					<li class="previousPage"><a href="?p={{currentPage - 1}}" data-p="{{currentPage - 1}}">&lt; previous</
+					a></li>
+			{% endif %}
+
+			{% for page in 1..pages %}
+				{% if page == currentPage %}
+					<li  class="active">
+						<span>{{currentPage}}</span>
+					</li>
+				{% else %}
+					<li >
+						<a href="?p={{page}}" data-p="{{page}}">{{page}}</a>
+					</li>
+				{% endif %}
+			{% endfor %}
+			<li class="nextPage"><a href="?p={{currentPage + 1}}" data-p="{{currentPage + 1}}">next &gt;</a></li>
+		</ul>
+		</div>
+		{% else %}
+			<p>No tools to show!</p>
+		{% endif %}
+	</section>
+
+ 
+
+{% endblock %}

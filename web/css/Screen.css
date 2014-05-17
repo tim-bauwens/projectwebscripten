@@ -1,0 +1,365 @@
+/* 
+    Document   : Screen
+    Created on : 29-apr-2013, 20:09:14
+    Author     : Tim
+*/
+
+root { 
+    display: block;
+}
+
+* {
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+}
+/* -------------------------------------------------------------------- */
+/* -----------------------------header--------------------------------- */
+/* -------------------------------------------------------------------- */
+
+#user {
+    position: relative;
+    left:85%;
+    top:-95%;
+    font-size: 10px;
+}
+
+#user p{
+    color: #FFFFFF;
+}
+#user a{
+    color: #FFFFFF;
+}
+
+#siteWrapper{
+    margin: 0 auto;
+    width: 80%;
+}
+
+header {
+    background-color: #333333;
+    color: #FFFFFF;
+    height: 100px;
+    position: relative;
+}
+
+h1 a {
+    margin-left: 1em;
+    color: #ffffff;
+    text-decoration:none;
+    text-align: center;
+}
+/* --------------------------------menu------------------------------------ */
+
+#Menu{
+    background-color: #333333;
+    position: relative;
+    top:5px;
+    left: 2em;
+}
+#Menu ul{
+
+    list-style-type:none;
+    margin:0;
+    padding:0;
+
+}
+
+#Menu li {
+    display:inline;
+    float:left;
+    border: solid 1px #ffffff;
+    text-align: center;
+    width: 8em;
+}
+
+#Menu a
+{
+    height:1.5em;
+    vertical-align:text-top;
+    text-decoration:none;
+    color: #ffffff;
+    display:block;
+}
+
+/* ---------------------------------searchbar----------------------------------- */
+
+#searchbar {
+    border: none;
+    height: 2em;
+    left: 3em;
+    position: relative;
+    top: -1em;
+    width: 25% !important;
+}
+
+#searchbar input{
+    height:1.45em;
+    width : 10em;
+    float:left;
+    margin:0px;
+    margin-right: 5px;
+    border:none;
+}
+
+#searchbar #search-button{
+    height:2em;
+    width : 5em;
+    float:left;
+    margin:0px;
+    border: solid 1px #ffffff;
+    background-color: #333333;
+    color:white;
+}
+
+#searchbar #search-button:hover{
+    background-color: #ffa500;
+}
+
+/* ---------------------------------breadcrumb----------------------------------- */
+
+#Menu a:hover{
+    background-color: #ffa500;
+    font-weight: bold;
+}
+
+.breadcrumb {
+    
+    position: relative;
+    top:10px;
+}
+
+.breadcrumb a{
+    color: #333333;
+}
+/* -------------------------------------------------------------------------- */
+/* -----------------------------page content--------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+h3 {
+
+    margin-top: 20px;
+    color: #333333;
+}
+
+.image_overview{
+    width: 100px;
+    height: 100px;
+    float:left;
+    padding-right: 10px;
+}
+
+/* --------------------------------pagination------------------------------------ */
+
+.pagination {
+    border-radius: 4px;
+    display: inline-block;
+    margin: 20px 0;
+    padding-left: 0;
+}
+
+.pagination ul{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+.pagination li{
+    display: inline;
+    padding-right: 5px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* --------------------------------login / register------------------------------------ */
+
+form{
+    margin-top:20px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #333333;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+form div{
+    margin: 10px;
+}
+
+footer{
+    position: relative;
+    top: 100px;
+}
+
+form .submit-button{
+    width: 100px !important;
+}
+form input,   
+form select,   
+form textarea,   
+form label {  
+    font-size:15px;  
+    margin-bottom:2px;  
+}  
+input[type="submit"]{cursor: pointer;}
+
+form input,   
+form select,   
+form textarea {  
+    width:450px;  
+    border: 1px solid #333333;
+    margin-bottom:10px;  
+    padding:4px;  
+}  
+  
+form input:focus,   
+form select:focus,   
+form textarea:focus {   
+    background-color: #cccccc;
+}  
+
+form label {  
+    display:block;  
+}  
+form textarea {  
+    height:150px;  
+    resize: none;  
+}  
+
+form #submit-button {  
+    width: 100px;  
+    background-color:#333333;  
+    color:#FFF;  
+    border:none;  
+    display:block;  
+    float:right;  
+    margin-bottom:0px;  
+    margin-right:6px;   
+    -moz-border-radius:8px;  
+} 
+
+form #submit-button:hover {  
+    background-color: #ffa500;  
+
+}  
+form #submit-button:active {  
+    position:relative;  
+    top:2px;  
+}  
+
+/* ----------------------------------add / modify items--------------------------- */
+
+#add_link{
+    color: #333333;
+    margin-bottom: 10px;
+    text-decoration:none;
+}
+
+#add_link a:visited{
+    background-color: #ffa500;
+}
+
+form select {
+    width: 100px !important;
+    margin-right: 10px;
+}
+
+/* -----------------------------------itemDetails--------------------------------- */
+
+.registerlink {
+    margin-left: 20px;
+}
+
+#error{   
+    color: Red;
+    font-size: 10px;
+    left: 440px;
+    position: relative;
+    top: 335px;
+}
+
+#itemDetails{
+    margin-top:20px;
+}
+
+article.itemDetail{
+    width: 38em;
+    border-bottom: 1px solid #333333;
+    margin-bottom:10px;  
+    padding:4px;
+    position: relative;
+    top: 20px;
+    color: #333333;
+    height:100px;
+}
+
+article.itemDetail a{
+    color: #333333;
+}
+article.itemDetail a:visited{
+    color: #ffa500;
+}
+
+article.itemDetail p{
+    margin-bottom:5px;
+}
+
+article.itemDetail p.author{
+    font-size: 10px;
+}
+
+/* ---------------------------------homepage----------------------------------- */
+
+section .homepage{
+    position:relative;
+    top:10px;
+    border-bottom: 1px solid #333333;
+    padding-bottom:20px;
+}
+section .homepage h3{
+    margin-top: 10px;
+    color: #333333;
+}
+
+section #overview li{
+        list-style-type:circle;
+        margin-left:20px;
+
+}
+
+/* ---------------------------------about----------------------------------- */
+section #about{
+    position:relative;
+    top:10px;
+}
+
+section #about h3{
+    margin-top: 10px;
+}
+
+/* ---------------------------------contact----------------------------------- */
+
+section #success{
+    position:relative;
+    top:20px;
+}
+
+/* ---------------------------------error messages----------------------------------- */
+
+#error404{
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: Red;
+}
+
+/* -------------------------------------------------------------------- */
+/* -----------------------------footer--------------------------------- */
+/* -------------------------------------------------------------------- */
+
+footer{
+    font-size: 10px;
+    text-align: center;
+    margin-bottom:10px;
+    padding-bottom:10px;
+}
+ 
