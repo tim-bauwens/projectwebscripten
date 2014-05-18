@@ -35,8 +35,8 @@
 				<li><a href="{{ app.request.baseUrl }}/about">About</a></li>
 				<li><a href="{{ app.request.baseUrl }}/contact">Contact</a></li>
 			</ul> 
-			<form id="searchbar" action="#" method="get">
-				<input type="text" id="searchtxt" name="search">
+			<form id="searchbar" action="{{ app.request.baseUrl }}/search" method="get">
+				<input type="text" id="keyword" name="search">
 				<input type="submit" value="Search" id="search-button"/>
 			</form> 
 			{% if app.user %}

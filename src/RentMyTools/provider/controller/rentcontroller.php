@@ -27,27 +27,34 @@ class RentController implements ControllerProviderInterface {
         
         public function overview(Application $app) {
             $toolsCount = $app['tools']->getCount();
-            $pages = ceil($toolsCount['total'] / 10);
+            $pages = ceil($toolsCount['total'] / 5);
             if(isset($_GET['p'])){
                 $currentPage = $_GET['p'];
-                $itemDetails = $app['tools']->getTools(($currentPage * 10) - 9,$currentPage * 10);
+                $itemDetails = $app['tools']->getTools(($currentPage * 5) - 4,$currentPage * 5);
             }
             else{
-                $itemDetails = $app['tools']->getTools(1,10);
+                $itemDetails = $app['tools']->getTools(1,5);
                 $currentPage = 1;
             }
-                        // get the first image path per item
+            
             for($i = 0; $i < sizeof($itemDetails); $i++){
-                  $directory = $app['paths']['web']  . '/files/' . $itemDetails[$i]['userID'] . '/' . $itemDetails[$i]['id'] . '/';
-                  $itemDetails[$i]['imagePath'] = $itemDetails[$i]['userID'] . '/' . $itemDetails[$i]['id'] . '/' . getAllImages($directory)[0];
+                //cut off the description after 120 characters
+                $itemDetails[$i]['description'] = substr(strip_tags($itemDetails[$i]['description']),0,120) . '...';
+                // get the first image path per item
+                $directory = $app['paths']['web']  . '/files/' . $itemDetails[$i]['userID'] . '/' . $itemDetails[$i]['id'] . '/';
+                $itemDetails[$i]['imagePath'] = $itemDetails[$i]['userID'] . '/' . $itemDetails[$i]['id'] . '/' . getAllImages($directory)[0];
             }
             return $app['twig']->render('rent/overview.twig', array('itemDetails' => $itemDetails, 'currentPage' => $currentPage, 'pages' => $pages));
     }
         public function detail(Application $app, $itemId) {
             $itemDetail = $app['tools']->find($itemId);
             if (!$itemDetail) {
-                    $app->abort(404, 'Item $id does not exist');
+                    $app->abort(404, 'Item with id ' . $itemId . ' does not exist');
             }
-            return $app['twig']->render('rent/detail.twig', array('itemDetail' => $itemDetail));
+            //get images
+            $directory = $app['paths']['web']  . '/files/' . $itemDetail['userID'] . '/' . $itemDetail['id'] . '/';
+            $images = getAllImages($directory);
+
+            return $app['twig']->render('rent/detail.twig', array('itemDetail' => $itemDetail, 'images' => $images));
     }
 }

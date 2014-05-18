@@ -39,17 +39,20 @@ class ManageController implements ControllerProviderInterface {
       public function overview(Application $app){
             $user = $app['manage']->findId($app['session']->get('user'));
             $toolsCount = $app['manage']->getCountByUser($user['id']);
-            $pages = ceil($toolsCount['total'] / 10);
+            $pages = ceil($toolsCount['total'] / 5);
             if(isset($_GET['p'])){
                 $currentPage = $_GET['p'];
-                $itemDetails = $app['manage']->getToolsByUser($user['id'], (($currentPage * 10) - 9), ($currentPage * 10));
+                $itemDetails = $app['manage']->getToolsByUser($user['id'], (($currentPage * 5) - 4), ($currentPage * 5));
             }
             else{
-                $itemDetails = $app['manage']->getToolsByUser($user['id'], 1,10);
+                $itemDetails = $app['manage']->getToolsByUser($user['id'], 1,5);
                 $currentPage = 1;
             } 
             // get the first image path per item
             for($i = 0; $i < sizeof($itemDetails); $i++){
+                  //cut off the description after 120 characters
+                  $itemDetails[$i]['description'] = substr(strip_tags($itemDetails[$i]['description']),0,120) . '...';
+                  //find the first image
                   $directory = $app['paths']['web']  . '/files/' . $itemDetails[$i]['userID'] . '/' . $itemDetails[$i]['id'] . '/';
                   $itemDetails[$i]['imagePath'] = $itemDetails[$i]['userID'] . '/' . $itemDetails[$i]['id'] . '/' . getAllImages($directory)[0];
             }
@@ -105,6 +108,9 @@ class ManageController implements ControllerProviderInterface {
                         $updateform->add('description', 'textarea', array(
                               'constraints' => array(new Assert\NotBlank())
                         ));
+                        $updateform->add('dayprice', 'text', array(
+                              'constraints' => array(new Assert\NotBlank())
+                        ));
                         $updateform->add('startdate', 'date', array(
                               'constraints' => array(new Assert\NotBlank())
                         ));
@@ -149,7 +155,7 @@ class ManageController implements ControllerProviderInterface {
                               $data['dateAdded'] = date('Y/m/d h-i-s', time());
                               $userId = $app['manage']->findId($app['session']->get('user'));
                               $data['userId'] = $userId['id'];
-                              $data['rented'] = 1;
+                              $data['dayprice'] = (double)$data['dayprice'];
                               $data['startdate'] = $data['startdate']->format('Y/m/d');
                               $data['enddate'] = $data['enddate']->format('Y/m/d');
                               unset($data['images']);
@@ -196,6 +202,9 @@ class ManageController implements ControllerProviderInterface {
                         $addform->add('description', 'textarea', array(
                               'constraints' => array(new Assert\NotBlank())
                         ));
+                        $addform->add('dayprice', 'text', array(
+                              'constraints' => array(new Assert\NotBlank())
+                        ));
                         $addform->add('startdate', 'date', array(
                               'constraints' => array(new Assert\NotBlank())
                         ));
@@ -225,6 +234,7 @@ class ManageController implements ControllerProviderInterface {
                         $data['rented'] = 0;
                         $data['startdate'] = $data['startdate']->format('Y/m/d');
                         $data['enddate'] = $data['enddate']->format('Y/m/d');
+                        $data['dayprice'] = (double)$data['dayprice'];
                         unset($data['images']);
                         //Insert data in DB
                         $app['manage']->insertItem($data);

@@ -6,18 +6,14 @@
 {% set pageTitle = 'Rent My Tools &raquo; Rent &raquo; Detail' %}
 
 {% block pageContent %}
-	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; rent overview</p>
-	<section id="filter">
-		
-	</section>
+	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; search results for <b>{{keyword}}</b></p>
 	<section id="itemDetails">
-		<div id=toolsOverview">
+		<div id=searchOverview">
 		{% if itemDetails %}
             {% for itemDetail in itemDetails %}
             <article class = "itemDetailOverview">
-            		<a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}"><img class ="image_overview" src="../files/{{itemDetail.imagePath}}"></a>
+            		<a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}"><img class ="image_overview" src="files/{{itemDetail.imagePath}}"></a>
                     <h2><a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}">{{ itemDetail.title }}</a></h2>
-                    <h3>€{{ itemDetail.dayprice }}/day</h3>
                     <p class="author">Posted by <em><a href="{{ app.request.baseUrl }}/user/{{ itemDetail.username }}">{{ itemDetail.username }}</em></a> on {{ itemDetail.dateadded }}</p>
                     {{ itemDetail.description}}
             </article>
@@ -29,7 +25,7 @@
 			{% if currentPage == 1 %}
 					<li class="previousPage disabled"><span>&lt; previous</span></li>
 			{% else %}	
-					<li class="previousPage"><a href="?p={{currentPage - 1}}" data-p="{{currentPage - 1}}">&lt; previous</
+					<li class="previousPage"><a href="?search={{keyword}}?p={{currentPage - 1}}" data-p="{{currentPage - 1}}">&lt; previous</
 					a></li>
 			{% endif %}
 
@@ -40,7 +36,7 @@
 					</li>
 				{% else %}
 					<li >
-						<a href="?p={{page}}" data-p="{{page}}">{{page}}</a>
+						<a href="?search={{keyword}}?p={{page}}" data-p="{{page}}">{{page}}</a>
 					</li>
 				{% endif %}
 			{% endfor %}
@@ -48,13 +44,13 @@
 			{% if itemDetails|length < 5 %}
 				<li class="nextPage disabled"><span>next &gt;</span></li>
 			{% else %}
-				<li class="nextPage"><a href="?p={{currentPage + 1}}" data-p="{{currentPage + 1}}">next &gt;</a></li>
+				<li class="nextPage"><a href="?search={{keyword}}?p={{currentPage + 1}}" data-p="{{currentPage + 1}}">next &gt;</a></li>
 			{% endif %}
 		</ul>
 		</div>
 		{% else %}
-			<p>No tools to show!</p>
-			<p><a href="{{ app.request.baseUrl }}/">Return to the homepage</a></p>
+			<p>No tools found with keyword: {{keyword}}!</p>
+			<p>Try using only one word or <a href="{{ app.request.baseUrl }}/">return to the homepage</a></p>
 		{% endif %}
 	</section>
 

@@ -54,9 +54,9 @@ class ContactController implements ControllerProviderInterface {
                             $data = $form->getData();
 
                             $message = \Swift_Message::newInstance()
-                                ->setSubject('[Real Estate] Contact')
-                                ->setFrom(array('noreply.realestate@gmail.com'))
-                                ->setTo(array($email))
+                                ->setSubject('[Rent my Tools] Contact')
+                                ->setFrom(array('noreply.rentmytools@gmail.com'))
+                                ->setTo(array('noreply.rentmytools@gmail.com'))
                                 ->setBody('<html>
                                             <head></head>
                                             <body>

@@ -9,7 +9,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 $app->error(function (\Exception $e, $code) use ($app){
 	if ($code == 404) {
 		return $app['twig']->render('errors/404.twig', array('error' => $e->getMessage()));
-		//return '<p">404 - File not Found! The page you requested is not available. // ' . $e->getMessage();
 	} else {
 		return 'Something went wrong // ' . $e->getMessage();
 	}
@@ -25,6 +24,8 @@ $app->mount('/rent', new RentMyTools\Provider\Controller\RentController());
 $app->mount('/login', new RentMyTools\Provider\Controller\LoginController());
 $app->mount('/logout', new RentMyTools\Provider\Controller\LogoutController());
 $app->mount('/register', new RentMyTools\Provider\Controller\RegisterController());
+
+$app->mount('/user', new RentMyTools\Provider\Controller\UserController());
 $app->mount('/manage', new RentMyTools\Provider\Controller\ManageController());
 
 

@@ -135,8 +135,6 @@ h1 a {
 /* -------------------------------------------------------------------------- */
 
 h3 {
-
-    margin-top: 20px;
     color: #333333;
 }
 
@@ -171,7 +169,13 @@ h3 {
     text-align: center;
 }
 
-/* --------------------------------login / register------------------------------------ */
+/* --------------------------------login/register------------------------------------ */
+
+h3#login{
+    margin-top:20px;
+}
+
+/* --------------------------------forms------------------------------------ */
 
 form{
     margin-top:20px;
@@ -185,11 +189,6 @@ form div{
     margin: 10px;
 }
 
-footer{
-    position: relative;
-    top: 100px;
-}
-
 form .submit-button{
     width: 100px !important;
 }
@@ -200,6 +199,17 @@ form label {
     font-size:15px;  
     margin-bottom:2px;  
 }  
+
+input#updateform_dayprice{
+    width:50px;
+    margin-left:10px;
+}
+
+input#addform_dayprice{
+    width:50px;
+    margin-left:10px;
+}
+
 input[type="submit"]{cursor: pointer;}
 
 form input,   
@@ -283,20 +293,12 @@ form select {
 
 article.itemDetail{
     width: 38em;
-    border-bottom: 1px solid #333333;
-    margin-bottom:10px;  
-    padding:4px;
+    margin-bottom: 10px;  
+    padding: 4px;
+    padding-bottom: 10px;
     position: relative;
     top: 20px;
     color: #333333;
-    height:100px;
-}
-
-article.itemDetail a{
-    color: #333333;
-}
-article.itemDetail a:visited{
-    color: #ffa500;
 }
 
 article.itemDetail p{
@@ -306,6 +308,78 @@ article.itemDetail p{
 article.itemDetail p.author{
     font-size: 10px;
 }
+ 
+article.itemDetailManage{
+    border-bottom: 1px solid #e0e0e0;
+    width: 60%;
+    margin-bottom: 10px;  
+    padding: 4px;
+    padding-bottom: 10px;
+    position: relative;
+    top: 20px;
+    color: #333333;
+}
+
+article.itemDetailManage a{
+    color: #333333;
+}
+article.itemDetailManage a:visited{
+    color: #ffa500;
+}
+
+article.itemDetailManage p{
+    margin-bottom:5px;
+}
+
+article.itemDetailOverview{
+    border-bottom: 1px solid #e0e0e0;
+    width: 60%;
+    margin-bottom: 10px;  
+    padding: 4px;
+    padding-bottom: 10px;
+    position: relative;
+    top: 20px;
+    color: #333333;
+    height: 120px;
+}
+
+article.itemDetailOverview a{
+    color: #333333;
+}
+article.itemDetailOverview a:visited{
+    color: #ffa500;
+}
+
+article.itemDetailOverview p{
+    margin-bottom:5px;
+}
+
+article.itemDetailOverview p.author{
+    font-size: 10px;
+}
+
+.image_detail{
+    margin-top:10px;
+    height: 150px;
+    width: 150px;
+    margin-right:10px;
+    border: 1px solid #333333;
+}
+
+.image_detail:hover{
+    float: left;
+    height: 200px;
+    width: 200px;
+}
+
+#images {
+    margin-top:10px;
+    height:300px;
+}
+#images p{
+    float: left;
+}
+
 
 /* ---------------------------------homepage----------------------------------- */
 
@@ -336,6 +410,11 @@ section #about h3{
     margin-top: 10px;
 }
 
+/* ---------------------------------profile----------------------------------- */
+
+#profile h3{
+    margin-top: 20px;
+}
 /* ---------------------------------contact----------------------------------- */
 
 section #success{
@@ -361,5 +440,8 @@ footer{
     text-align: center;
     margin-bottom:10px;
     padding-bottom:10px;
+    width:99%;
+    position: relative;
+    top: 100px;
 }
  

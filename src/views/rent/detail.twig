@@ -10,8 +10,18 @@
 	<section id="itemDetail">
             <article class = "itemDetail">
                 <h2>{{ itemDetail.title }}</h2>
+                <h3>€{{ itemDetail.dayprice }}/day</h3>
                 <p>{{ itemDetail.description|raw }} </p>
-                <p class="author">Posted by <em>{{ itemDetail.username }}</em> on {{ itemDetail.dateadded }}</p>
+                <p>Available from {{ itemDetail.startdate }} to  {{ itemDetail.enddate }}</p>
+                <p class="author">Posted by <em><a href="{{ app.request.baseUrl }}/user/{{ itemDetail.username }}">{{ itemDetail.username }}</em></a> on {{ itemDetail.dateadded }}</p>
+                {# images #}
+                <div id="images">
+	                {% for image in images %}
+	                	<p><img class ="image_detail" src="../files/{{ itemDetail.userID }}/{{ itemDetail.id }}/{{image}}"></p>
+	                {% endfor %}
+                </div>
+                {# click here to rent displays form below #}
+                {# rent request form #}
             </article>
 	</section>
  

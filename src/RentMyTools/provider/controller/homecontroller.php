@@ -25,15 +25,45 @@ class HomeController implements ControllerProviderInterface {
 
             // Bind sub-routes
             $controllers->get('/', array($this, 'overview'));
+            $controllers->get('/search', array($this, 'search'));
             return $controllers;
 
 	}
         
-        public function overview(Application $app) {
-            return $app['twig']->render('home.twig');
-
-            //return $app['twig']->('layout.twig', ('userMessage' => $userMessage));
-
-
+    public function overview(Application $app) {
+        return $app['twig']->render('home.twig');
 	}
+
+    public function search(Application $app) {
+
+        if(isset($_GET['search'])){
+            $keyword = $_GET['search'];
+            $keywordSQL = '%'. $keyword .'%';
+        }
+        else{
+            $keyword = "No keyword given!";
+            $keywordSQL = '';
+        }
+
+        $toolsCount = $app['tools']->getToolsBySearchCount($keywordSQL);
+        $pages = ceil($toolsCount[0]['total'] / 5);
+        
+        if(isset($_GET['p'])){
+            $currentPage = $_GET['p'];
+            $itemDetails = $app['tools']->getToolsBySearch($keywordSQL,($currentPage * 5) - 4,$currentPage * 5);
+        }
+        else{
+            $itemDetails = $app['tools']->getToolsBySearch($keywordSQL,1,5);
+            $currentPage = 1;
+        }
+        
+        for($i = 0; $i < sizeof($itemDetails); $i++){
+            //cut off the description after 120 characters
+            $itemDetails[$i]['description'] = substr(strip_tags($itemDetails[$i]['description']),0,120) . '...';
+            // get the first image path per item
+            $directory = $app['paths']['web']  . '/files/' . $itemDetails[$i]['userID'] . '/' . $itemDetails[$i]['id'] . '/';
+            $itemDetails[$i]['imagePath'] = $itemDetails[$i]['userID'] . '/' . $itemDetails[$i]['id'] . '/' . getAllImages($directory)[0];
+        }
+        return $app['twig']->render('search.twig', array('itemDetails' => $itemDetails, 'currentPage' => $currentPage, 'pages' => $pages, 'keyword' => $keyword));
+    }
 }

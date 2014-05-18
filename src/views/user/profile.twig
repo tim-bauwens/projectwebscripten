@@ -1,0 +1,38 @@
+{# extend the parent tpl #}
+{% extends 'layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Rent My Tools' %}
+
+{% block pageContent %}
+	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; {{user.username}}</p>
+	
+    <section id="profile">
+   	<h3>Welcome to the profile page of {{user.username}}!</h3>
+   	<p>Name: {{user.firstname}} {{user.lastname}}</p>
+   	<p>Address: {{user.address}}</p>
+   	{% if user.biography != null %}
+   		<p>Biography:</p>
+   		<p>{{user.biography}}</p>
+   	{% endif %}
+   	{# list of 5 most recent items? #}
+	</section>
+   <section id="itemDetails">
+         {% if itemDetails %}
+         <p>The latest tools added by {{user.username}}. {% if itemDetails|length > 5 %}<a href="{{ app.request.baseUrl }}/search?search={{user.username}}">Click here</a> for the complete list.{% endif %}</p>
+            {% for itemDetail in itemDetails %}
+            <article class = "itemDetailOverview">
+                  <a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}"><img class ="image_overview" src="../files/{{itemDetail.imagePath}}"></a>
+                    <h2><a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}">{{ itemDetail.title }}</a></h2>
+                    <h3>€{{ itemDetail.dayprice }}/day</h3>
+                    <p class="author">Posted on {{ itemDetail.dateadded }}</p>
+                    {{ itemDetail.description}}
+            </article>
+            {% endfor %}
+         {% else %}
+            <p>No tools to show!</p>
+         {% endif %}
+   </section>
+
+{% endblock %}

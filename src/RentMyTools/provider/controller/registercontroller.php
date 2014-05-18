@@ -45,12 +45,8 @@ class RegisterController implements ControllerProviderInterface {
             ->add('email', 'email', array(
                 'constraints' => array(new Assert\NotBlank(),new Assert\Email())
             ))
-            ->add('phonenumber', 'text', array(
-                'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 9)))
-            ))
-            ->add('address', 'text', array(
-                'constraints' => array(new Assert\NotBlank())
-            ))
+            ->add('phonenumber', 'text')
+            ->add('address', 'text')
             ->getForm();
 
             if ('POST' == $request->getMethod()) {
@@ -64,7 +60,21 @@ class RegisterController implements ControllerProviderInterface {
 
                     $app['session']->set('is_user', true);
                     $app['session']->set('user', $data["username"]);
+                    //send register mail
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('[Rent my tools] Registration succesful!')
+                        ->setFrom(array('noreply.rentmytools@gmail.com'))
+                        ->setTo(array($data['email']))
+                        ->setBody('<html>
+                                    <head></head>
+                                    <body>
+                                    <div>
+                                        <p>' . $data['username'] . ', you have succesfully registered at www.rentmytools.com!</p>
+                                    </div>
+                                    </body>
+                                </html>', 'text/html');
 
+                    $app['mailer']->send($message);
                     // redirect 
                     return $app->redirect('register/success');
                 }
@@ -86,6 +96,7 @@ class RegisterController implements ControllerProviderInterface {
         return $app['twig']->render('register/overview.twig');
 	}
     public function success(Application $app) {
+        //send mail
         return $app['twig']->render('register/success.twig');
     }
 }

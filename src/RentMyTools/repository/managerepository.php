@@ -18,7 +18,7 @@ class ManageRepository extends \Knp\Repository {
     }
 
     public function getToolsByUser($userId, $pageStart, $pageEnd){
-        return $this->db->fetchAll('SELECT items.*, accounts.username from items INNER JOIN accounts ON items.userId = accounts.id WHERE accounts.id = ? AND items.id BETWEEN ? AND ?', array($userId, $pageStart,$pageEnd));
+        return $this->db->fetchAll('CALL getToolsByUser(?,?,?)', array($userId, $pageStart,$pageEnd));
     }
 
     // insert, update, delete

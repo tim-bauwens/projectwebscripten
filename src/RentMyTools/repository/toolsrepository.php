@@ -16,6 +16,14 @@ class ToolsRepository extends \Knp\Repository {
         return $this->db->fetchAll('SELECT items.*, accounts.username from items INNER JOIN accounts ON items.userId = accounts.id WHERE items.id BETWEEN ? AND ?', array($pageStart,$pageEnd));
     }
 
+    public function getToolsBySearch($keyword,$pageStart,$pageEnd){
+        return $this->db->fetchAll('CALL getToolsBySearch(?,?,?)',array($keyword,$pageStart,$pageEnd));
+    }
+
+        public function getToolsBySearchCount($keyword){
+        return $this->db->fetchAll('CALL getToolsBySearchCount(?)',array($keyword));
+    }
+
     public function getCount(){
         return $this->db->fetchAssoc('SELECT COUNT(*) AS total FROM items');
     }
