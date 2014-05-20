@@ -18,15 +18,6 @@ class ContactController implements ControllerProviderInterface {
 
                 //make form
                 $app->match('/contact', function (Request $request) use ($app) {
-                    $email = "";
-                    if(isset($_GET['id']) && !empty($_GET['id']))
-                    {
-                        $id = $app['account']->findId($_GET['id']);
-                        //$email = $app['contact']->findEmail($id['companyId']);
-                    }
-                    else{
-                        $email = 'noreply.realestate@gmail.com';
-                    }
                     //some default data for when the form is displayed the first time
                     $data = array(
                         'Name' => $app['session']->get('user'),

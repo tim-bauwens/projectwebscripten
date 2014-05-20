@@ -36,20 +36,15 @@ class HomeController implements ControllerProviderInterface {
 
     public function search(Application $app) {
 
-        if(isset($_GET['search'])){
-            $keyword = $_GET['search'];
-            $keywordSQL = '%'. $keyword .'%';
-        }
-        else{
-            $keyword = "No keyword given!";
-            $keywordSQL = '';
-        }
+        $keyword = $app['request']->get('search');
+        $keywordSQL = '%'. $keyword .'%';
 
         $toolsCount = $app['tools']->getToolsBySearchCount($keywordSQL);
         $pages = ceil($toolsCount[0]['total'] / 5);
         
-        if(isset($_GET['p'])){
-            $currentPage = $_GET['p'];
+
+        $currentPage = $app['request']->get('p');
+        if($currentPage != null){
             $itemDetails = $app['tools']->getToolsBySearch($keywordSQL,($currentPage * 5) - 4,$currentPage * 5);
         }
         else{

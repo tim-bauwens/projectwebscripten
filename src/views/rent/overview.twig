@@ -7,55 +7,63 @@
 
 {% block pageContent %}
 	<p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Rent My Tools</a> &raquo; rent overview</p>
-	<section id="filter">
 		
+	{% if itemDetails %}
+	<section id="filterform" action = "post">
+		<form method="post">
+			<p>Filter the tools</p>
+		    	{{ form_widget(filterform) }}
+	        <p>
+                <input type="submit" value="Filter" id="submit-button"/>
+            </p>
+		</form>
 	</section>
 	<section id="itemDetails">
 		<div id=toolsOverview">
-		{% if itemDetails %}
             {% for itemDetail in itemDetails %}
-            <article class = "itemDetailOverview">
-            		<a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}"><img class ="image_overview" src="../files/{{itemDetail.imagePath}}"></a>
-                    <h2><a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}">{{ itemDetail.title }}</a></h2>
-                    <h3>€{{ itemDetail.dayprice }}/day</h3>
-                    <p class="author">Posted by <em><a href="{{ app.request.baseUrl }}/user/{{ itemDetail.username }}">{{ itemDetail.username }}</em></a> on {{ itemDetail.dateadded }}</p>
-                    {{ itemDetail.description}}
-            </article>
+	            <article class = "itemDetailOverview">
+	            		<a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}"><img class ="image_overview" src="../files/{{itemDetail.imagePath}}"></a>
+	                    <h2><a href="{{ app.request.baseUrl }}/rent/{{ itemDetail.id }}">{{ itemDetail.title }}</a></h2>
+	                    <h3>€{{ itemDetail.dayprice }}/day</h3>
+	                    <p class="author">Posted by <em><a href="{{ app.request.baseUrl }}/user/{{ itemDetail.username }}">{{ itemDetail.username }}</em></a> on {{ itemDetail.dateadded }}</p>
+	                    {{ itemDetail.description}}
+	            </article>
             {% endfor %}
 		</div>
 		<div class="text-center">
 			<ul class="pagination">
-
-			{% if currentPage == 1 %}
-					<li class="previousPage disabled"><span>&lt; previous</span></li>
-			{% else %}	
-					<li class="previousPage"><a href="?p={{currentPage - 1}}" data-p="{{currentPage - 1}}">&lt; previous</
-					a></li>
-			{% endif %}
-
-			{% for page in 1..pages %}
-				{% if page == currentPage %}
-					<li  class="active">
-						<span>{{currentPage}}</span>
-					</li>
-				{% else %}
-					<li >
-						<a href="?p={{page}}" data-p="{{page}}">{{page}}</a>
-					</li>
+				{% if currentPage == 1 %}
+						<li class="previousPage disabled"><span>&lt; previous</span></li>
+				{% else %}	
+						<li class="previousPage"><a href="?p={{currentPage - 1}}" data-p="{{currentPage - 1}}">&lt; previous</
+						a></li>
 				{% endif %}
-			{% endfor %}
 
-			{% if itemDetails|length < 5 %}
-				<li class="nextPage disabled"><span>next &gt;</span></li>
-			{% else %}
-				<li class="nextPage"><a href="?p={{currentPage + 1}}" data-p="{{currentPage + 1}}">next &gt;</a></li>
-			{% endif %}
-		</ul>
+				{% for page in 1..pages %}
+					{% if page == currentPage %}
+						<li  class="active">
+							<span>{{currentPage}}</span>
+						</li>
+					{% else %}
+						<li >
+							<a href="?p={{page}}" data-p="{{page}}">{{page}}</a>
+						</li>
+					{% endif %}
+				{% endfor %}
+
+				{% if itemDetails|length < 5 %}
+					<li class="nextPage disabled"><span>next &gt;</span></li>
+				{% else %}
+					<li class="nextPage"><a href="?p={{currentPage + 1}}" data-p="{{currentPage + 1}}">next &gt;</a></li>
+				{% endif %}
+			</ul>
 		</div>
-		{% else %}
+	{% else %}
+		<section id="itemDetails">
 			<p>No tools to show!</p>
-			<p><a href="{{ app.request.baseUrl }}/">Return to the homepage</a></p>
-		{% endif %}
+			<p><a href="{{ app.request.baseUrl }}/rent">Return to the tools overview</a></p>
+		</section>
+	{% endif %}
 	</section>
 
  

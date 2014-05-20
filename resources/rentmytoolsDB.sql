@@ -12,20 +12,23 @@ CREATE TABLE accounts(
     `firstname` VARCHAR(225),
 	`lastname` VARCHAR(225),
 	`email` VARCHAR(225),
-    `phonenumber` VARCHAR(225),
+    `phonenumber` VARCHAR(45),
 	`address` VARCHAR(225),
-    `biography` TEXT
+    `biography` LONGTEXT
 );
 
 CREATE table items(
 	`id` INTEGER unsigned auto_increment PRIMARY KEY,
 	`userID` INTEGER,
 	`title` VARCHAR(225),
-	`description` VARCHAR(225),
+	`description` LONGTEXT,
 	`startdate` DATE,
 	`enddate` DATE,
 	`dateadded` DATE,
-	`rented` BOOLEAN
+	`rented` BOOLEAN,
+	`town` VARCHAR(45),
+	`postalcode` INTEGER,
+	`province` VARCHAR(45)
 );
 
 --STORED PROCEDURES --

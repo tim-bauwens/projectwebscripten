@@ -40,7 +40,8 @@ class ManageController implements ControllerProviderInterface {
             $user = $app['manage']->findId($app['session']->get('user'));
             $toolsCount = $app['manage']->getCountByUser($user['id']);
             $pages = ceil($toolsCount['total'] / 5);
-            if(isset($_GET['p'])){
+            $currentPage = $app['request']->get('p');
+            if($currentPage != null){
                 $currentPage = $_GET['p'];
                 $itemDetails = $app['manage']->getToolsByUser($user['id'], (($currentPage * 5) - 4), ($currentPage * 5));
             }
@@ -59,7 +60,7 @@ class ManageController implements ControllerProviderInterface {
             return $app['twig']->render('manage/overview.twig', array('itemDetails' => $itemDetails, 'currentPage' => $currentPage, 'pages' => $pages));
       }
       public function delete(Application $app) {
-            $id = intval($_GET['id']);
+            $id = $app['request']->get('id');
             $idArray = array(
                 "id" => $id
             );
@@ -89,11 +90,11 @@ class ManageController implements ControllerProviderInterface {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
       public function update(Application $app) {
-            $id = intval($_GET['id']);
+            $id = $app['request']->get('id');
             $data = $app['manage']->find($id);
 
-            unset($data['startdate']);
-            unset($data['enddate']);
+            $data['startdate'] = new \dateTime($data['startdate']);
+            $data['enddate']= new \dateTime($data['enddate']);
 
             $userId = $app['manage']->findId($app['session']->get('user'));
 
@@ -101,46 +102,46 @@ class ManageController implements ControllerProviderInterface {
             $images = getAllImages($directory);
             //build form
             $builder = $app['form.factory'];
-                        $updateform = $builder->createNamed('updateform', 'form', $data);
-                        $updateform->add('title', 'text', array(
-                              'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
-                        ));
-                        $updateform->add('description', 'textarea', array(
-                              'constraints' => array(new Assert\NotBlank())
-                        ));
-                        $updateform->add('dayprice', 'text', array(
-                              'constraints' => array(new Assert\NotBlank())
-                        ));
-                        $updateform->add('startdate', 'date', array(
-                              'constraints' => array(new Assert\NotBlank())
-                        ));
-                        $updateform->add('enddate', 'date', array(
-                              'constraints' => array(new Assert\NotBlank())
-                        ));
-                        
-                        $updateform->add('images', 'file', array(
-                              'constraints' => array(new Assert\NotBlank()),
-                              'attr' => array(
-                                          'accept' => 'image/*',
-                                          'multiple' => 'multiple'
-                                          )
-                        ));
-                        //add any images there are to the form.
-                        $imageViews = array();
-                        for($i = 0; $i < sizeof($images); $i++){
-                              $updateform->add('image' . $i, 'checkbox', array(
-                                  'label' => $images[$i]
-                              ));
-                              $imageViews['image'.$i] = array(
-                                    'view' => $updateform->get('image'.$i)->createView(),
-                                    'imagepath' => $userId['id'] . '/' . $id .'/'. $images[$i]
-                                    );
-                        }
+            $updateform = $builder->createNamed('updateform', 'form', $data);
+            $updateform->add('title', 'text', array(
+                  'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5)))
+            ));
+            $updateform->add('description', 'textarea', array(
+                  'constraints' => array(new Assert\NotBlank())
+            ));
+            $updateform->add('dayprice', 'text', array(
+                  'constraints' => array(new Assert\NotBlank())
+            ));
+            $updateform->add('startdate', 'date', array(
+                  'constraints' => array(new Assert\NotBlank())
+            ));
+            $updateform->add('enddate', 'date', array(
+                  'constraints' => array(new Assert\NotBlank())
+            ));
+            
+            $updateform->add('images', 'file', array(
+                  'constraints' => array(new Assert\NotBlank()),
+                  'attr' => array(
+                              'accept' => 'image/*',
+                              'multiple' => 'multiple'
+                              )
+            ));
+            //add any images there are to the form.
+            $imageViews = array();
+            for($i = 0; $i < sizeof($images); $i++){
+                  $updateform->add('image' . $i, 'checkbox', array(
+                      'label' => $images[$i]
+                  ));
+                  $imageViews['image'.$i] = array(
+                        'view' => $updateform->get('image'.$i)->createView(),
+                        'imagepath' => $userId['id'] . '/' . $id .'/'. $images[$i]
+                        );
+            }
             // Form was submitted: process it
             if ('POST' == $app['request']->getMethod()) {
                   $updateform->bind($app['request']);
 
-                  $id = intval($_GET['id']);
+                  $id = $app['request']->get('id');
                   //user can only update his own items
                   $userId = $app['manage']->findUserIdByItem($id);
                   $username = $app['manage']->getUser($userId);
